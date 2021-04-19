@@ -8,14 +8,15 @@ const products = [
 
 const renderProduct = (title, price) => {
     return `<div class="product-item">
-                <h3>${title}</h3>
-                <p>${price}</p>
+                <h3 class="product-title">${title}</h3>
+                <p class="product-price">${price}</p>
                 <button class="by-btn">Добавить в корзину</button>
               </div>`;
 }
 
 const renderProducts = (list) => {
-    const productListHTML = list.map((item) => renderProduct(item.title, item.price));
+    let productListHTML;
+    productListHTML = list.map((item) => renderProduct(item.title, item.price));
     // console.log(productListHTML);
     document.querySelector('.products').innerHTML = productListHTML;
 }
