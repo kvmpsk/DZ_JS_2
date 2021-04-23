@@ -15,8 +15,8 @@
 
 .products {
     display: flex;
-    /*gap: 10px;*/
-}
+    flex-wrap: wrap;
+  }
 
 .header-button {
     display: flex;
@@ -26,6 +26,7 @@
     height: 60px;
     margin-top: 10px;
     margin-bottom: 30px;
+    background-color: beige;
 }
 
 .btn-cart {
@@ -42,7 +43,8 @@
 
 .by-btn {
     margin-top: 20px;
-    padding: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
     background-color: aquamarine;
     border-radius: 5px;
 }
@@ -55,6 +57,7 @@
     width: 250px;
     padding-top: 80px;
     margin-right: 20px;
+    margin-bottom: 20px;
     text-align: center;
     border: solid 1px black;
 }
