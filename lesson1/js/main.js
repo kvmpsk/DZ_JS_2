@@ -17,7 +17,6 @@ const renderProduct = (item, img) => `<div class="product-item">
                 <button class="by-btn">Добавить в корзину</button>
             </div>`;
 
-
 const renderProducts = list => {
    document.querySelector('.products').insertAdjacentHTML('beforeend', list.map(item => renderProduct(item)).join(""));
 }
