@@ -1,5 +1,4 @@
 const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses';
-
 // Переведено на промисы
 // let getRequest = (url) => {
 //     return new Promise((resolve, reject) => {
@@ -17,7 +16,6 @@ const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 //         xhr.send();
 //     })
 // };
-
 /**
  * Описываем базовые классы
  */
