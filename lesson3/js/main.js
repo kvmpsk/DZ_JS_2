@@ -16,25 +16,20 @@ const API = 'https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-a
 //         xhr.send();
 //     })
 // };
-/**
- * Описываем базовые классы
- */
+
+// Класс списка товаров
+
 class List {
   constructor(url, container, list = listContext){
     this.container = container;
-    this.list = list; // словарь для классов строка 213
+    this.list = list;
     this.url = url;
     this.goods = [];
     this.allProducts = [];
-    this.filtered = []; // отфильтрованные товары
+    this.filtered = [];
     this._init();
   }
-
-  /**
-   * получение данных с сервера
-   * @param url
-   * @returns {Promise<any | never>}
-   */
+  
   getJson(url){
     return fetch(url ? url : `${API + this.url}`)
       .then(result => result.json())
@@ -42,33 +37,22 @@ class List {
         console.log(error);
       })
   }
-
-  /**
-   * обработка полученных данных
-   * @param data
-   */
+  
   handleData(data){
     this.goods = data;
     this.render();
   }
-
-  /**
-   * подсчет стоимости всех товаров
-   * @returns {*|number}
-   */
+  
   calcSum(){
     return this.allProducts.reduce((accum, item) => accum += item.price, 0);
   }
+  
   render(){
     const block = document.querySelector(this.container);
     for (let product of this.goods){
       console.log(this.constructor.name);
-      const productObj = new this.list[this.constructor.name](product);
-
-      // альтернативаня реализация без словаря
-      // let productObj = null;
-      // if (this.constructor.name === 'ProductsList') productObj = new ProductItem(product);
-      // if (this.constructor.name === 'Cart') productObj = new CartItem(product);
+       const productObj = new this.list[this.constructor.name](product);
+      
       if (!productObj) return;
 
       console.log(productObj);
@@ -76,11 +60,7 @@ class List {
       block.insertAdjacentHTML('beforeend', productObj.render());
     }
   }
-
-  /**
-   * метод поиска товаров
-   * @param value - поисковый запрос
-   */
+  
   filter(value){
     const regexp = new RegExp(value, 'i'); //
     this.filtered = this.allProducts.filter(product => regexp.test(product.product_name));
@@ -98,6 +78,8 @@ class List {
   }
 }
 
+// Класс товара
+
 class Item{
   constructor(el, img = 'https://via.placeholder.com/200x150'){
     this.product_name = el.product_name;
@@ -110,9 +92,8 @@ class Item{
   }
 }
 
-/**
- * Наследуемся от базовых классов
- */
+// Подкласс списка товаров
+
 class ProductsList extends List{
   constructor(cart, container = '.products', url = "/catalogData.json"){
     super(url, container);
@@ -134,6 +115,8 @@ class ProductsList extends List{
   }
 }
 
+// Подкласс единицы товара
+
 class ProductItem extends Item{
   render() {
     return `<div class="product-item" data-id="${this.id_product}">
@@ -150,6 +133,8 @@ class ProductItem extends Item{
   }
 }
 
+// Подкласс корзины
+
 class Cart extends List{
   constructor(container = ".cart-block", url = "/getBasket.json"){
     super(url, container);
@@ -158,11 +143,7 @@ class Cart extends List{
         this.handleData(data.contents);
       });
   }
-
-  /**
-   * добавление товара
-   * @param element
-   */
+  
   addProduct(element){
     this.getJson(`${API}/addToBasket.json`)
       .then(data => {
@@ -190,11 +171,7 @@ class Cart extends List{
         }
       })
   }
-
-  /**
-   * удаление товара
-   * @param element
-   */
+  
   removeProduct(element){
     this.getJson(`${API}/deleteFromBasket.json`)
       .then(data => {
@@ -213,12 +190,7 @@ class Cart extends List{
         }
       })
   }
-
-  /**
-   * обновляем данные корзины
-   * @param product
-   * @private
-   */
+  
   _updateCart(product){
     let block = document.querySelector(`.cart-item[data-id="${product.id_product}"]`);
     block.querySelector('.product-quantity').textContent = `Количество: ${product.quantity}`;
@@ -236,6 +208,8 @@ class Cart extends List{
   }
 
 }
+
+// Подкласс ед. товара в корзине
 
 class CartItem extends Item{
   constructor(el, img = 'https://via.placeholder.com/50x100'){
@@ -264,8 +238,5 @@ const listContext = {
   ProductsList: ProductItem,
   Cart: CartItem
 };
-
-// let cart = new Cart();
-// let products = new ProductsList(cart);
 
 new ProductsList(new Cart());
