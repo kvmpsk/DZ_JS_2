@@ -61,9 +61,13 @@ new ProductList();
 	
 
 class CartItem extends ProductList {
-	constructor() {
-		super(goods, quantity)
-		quantity = 0;
+	constructor(goods, quantity) {
+		super(goods)
+		this.quantity = quantity;
+		this.init();
+		this.render();
+		this.getCartItem();
+		this.clearCartItem();
 	}
 
 	init() {
