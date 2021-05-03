@@ -121,8 +121,6 @@
 
 // Домашнее задание
 
-// console.log('Lorem \'ipsum\' dolor sit amet, \'consectetur\'adipisicing elit.\ Adipisci \'atque\' dolores \'ducimus\' ipsam non quaerat qui sequi soluta \'ullam\' vero! Dicta, ex hic id illo \'iste\' iure \'obcaecati\' ullam.\'Inventore?'.replace(/'a-z'/ig, "a-z"));
-
 console.log('Hi \'all\' hi \'you\'.'.replace(/'/g, '"'));
 
-console.log('Hi \'all\' hi \'you\', don\'t you?' .replace(/'/g, '"'));
+console.log('Hi \'all\' hi \'you\', don\'t you?' .replace(/\B'|'\B/g, '"'));
