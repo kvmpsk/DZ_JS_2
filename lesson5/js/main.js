@@ -57,7 +57,7 @@ const app = new Vue({
   created(){
     this.getJson(`${API + this.cartUrl}`)
       .then(data => {
-        for (let el of data.contents) {
+        for (let el of data.content) {
           this.cartItems.push(el);
         }
       });
