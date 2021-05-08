@@ -1,7 +1,7 @@
 Vue.component('cart', {
     data(){
       return {
-          imgCart: 'https://placehold.it/50x100',
+          imgCart: 'https://via.placeholder.com/50x100',
           cartUrl: '/getBasket.json',
           cartItems: [],
           showCart: false,
@@ -51,11 +51,11 @@ Vue.component('cart', {
             <div class="cart-block" v-show="showCart">
                 <p v-if="!cartItems.length">Корзина пуста</p>
                 <cart-item class="cart-item" 
-                v-for="item of cartItems" 
-                :key="item.id_product"
-                :cart-item="item" 
-                :img="imgCart"
-                @remove="remove">
+                    v-for="item of cartItems"
+                    :key="item.id_product"
+                    :cart-item="item"
+                    :img="imgCart"
+                    @remove="remove">
                 </cart-item>
             </div>
         </div>`

@@ -4,7 +4,8 @@ Vue.component('products', {
             catalogUrl: '/catalogData.json',
             products: [],
             filtered: [],
-            imgCatalog: 'https://placehold.it/200x150',
+            userSearch: '',
+            imgCatalog: 'https://via.placeholder.com/200x150',
         }
     },
     methods: {
@@ -31,7 +32,12 @@ Vue.component('products', {
     },
     template: `
         <div class="products">
-            <product ref="refref" v-for="item of filtered" :key="item.id_product" :img="imgCatalog" :product="item"></product>
+            <product ref="refref"
+                     v-for="item of filtered"
+                     :key="item.id_product"
+                     :img="imgCatalog"
+                     :product="item">
+            </product>
         </div>
     `
 });
@@ -48,4 +54,17 @@ Vue.component('product', {
                 </div>
             </div>
     `
+});
+
+Vue.component('search-form', {
+    props: ['userSearch'],
+    template: `
+         <form action="#" class="search-form" @submit.prevent="filter">
+                <input type="text" class="search-field" v-model="userSearch">
+                <button class="btn-search" type="submit">
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+    `
+   
 });
