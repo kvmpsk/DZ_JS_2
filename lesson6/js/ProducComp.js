@@ -9,8 +9,8 @@ Vue.component('products', {
         }
     },
     methods: {
-        filter(){
-            let regexp = new RegExp(this.userSearch, 'i');
+        filter(value){
+            let regexp = new RegExp(value, 'i');
             this.filtered = this.products.filter(el => regexp.test(el.product_name));
         }
     },
@@ -22,13 +22,13 @@ Vue.component('products', {
                     this.filtered.push(el);
                 }
             });
-        // this.$parent.getJson(`getProducts.json`)
-        //     .then(data => {
-        //         for(let el of data){
-        //             this.products.push(el);
-        //             this.filtered.push(el);
-        //         }
-        //     })
+        this.$parent.getJson(`getProducts.json`)
+            .then(data => {
+                for(let el of data){
+                    this.products.push(el);
+                    this.filtered.push(el);
+                }
+            })
     },
     template: `
         <div class="products">
@@ -57,14 +57,16 @@ Vue.component('product', {
 });
 
 Vue.component('search-form', {
-    props: ['userSearch'],
+    data() {
+        return { userSearch: ''
+        }
+    },
     template: `
-         <form action="#" class="search-form" @submit.prevent="filter">
+         <form action="#" class="search-form" @submit.prevent="$parent.$refs.products.filter(userSearch)">
                 <input type="text" class="search-field" v-model="userSearch">
                 <button class="btn-search" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
             </form>
     `
-   
 });
